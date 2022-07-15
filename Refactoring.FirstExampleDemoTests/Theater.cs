@@ -21,7 +21,8 @@ namespace Refactoring.FirstExampleDemoTests
 
             foreach (var perf in invoice.Performances)
             {
-                var thisAmount = AmountFor(perf, PlayFor(perf));
+                //var play = PlayFor(perf);
+                var thisAmount = AmountFor(perf);
 
                 // add volume credits
                 volumeCredits += Math.Max(perf.Audience - 30, 0);
@@ -41,10 +42,10 @@ namespace Refactoring.FirstExampleDemoTests
                 return _plays[aPerformance.PlayId];
             }
 
-            int AmountFor(Performance aPerformance, Play play)
+            int AmountFor(Performance aPerformance)
             {
                 int result;
-                switch (play.Type)
+                switch (PlayFor(aPerformance).Type)
                 {
                     case "tragedy":
                         result = 40000;
@@ -63,7 +64,7 @@ namespace Refactoring.FirstExampleDemoTests
                         result += 300 * aPerformance.Audience;
                         break;
                     default:
-                        throw new Exception($"unknown type: {play.Type}");
+                        throw new Exception($"unknown type: {PlayFor(aPerformance).Type}");
                 }
 
                 return result;
