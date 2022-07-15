@@ -21,17 +21,14 @@ namespace Refactoring.FirstExampleDemoTests
 
             foreach (var perf in invoice.Performances)
             {
-                //var play = PlayFor(perf);
-                var thisAmount = AmountFor(perf);
-
                 // add volume credits
                 volumeCredits += Math.Max(perf.Audience - 30, 0);
                 // add extra credit for every ten comedy attendees
                 if ("comedy" == PlayFor(perf).Type) volumeCredits += (int)Math.Floor((double)perf.Audience / 5);
 
                 // print line for this order
-                result += $" {PlayFor(perf).Name}: {(thisAmount / 100).ToString("C", new CultureInfo("en-US"))} ({perf.Audience} seats)\r\n";
-                totalAmount += thisAmount;
+                result += $" {PlayFor(perf).Name}: {(AmountFor(perf) / 100).ToString("C", new CultureInfo("en-US"))} ({perf.Audience} seats)\r\n";
+                totalAmount += AmountFor(perf);
             }
             result += $"Amount owed is {(totalAmount / 100).ToString("C", new CultureInfo("en-US"))}\r\n";
             result += $"You earned {volumeCredits} credits";
