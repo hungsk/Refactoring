@@ -21,10 +21,7 @@ namespace Refactoring.FirstExampleDemoTests
 
             foreach (var perf in invoice.Performances)
             {
-                // add volume credits
-                volumeCredits += Math.Max(perf.Audience - 30, 0);
-                // add extra credit for every ten comedy attendees
-                if ("comedy" == PlayFor(perf).Type) volumeCredits += (int)Math.Floor((double)perf.Audience / 5);
+                volumeCredits += volumeCreditsFor(perf);
 
                 // print line for this order
                 result += $" {PlayFor(perf).Name}: {(AmountFor(perf) / 100).ToString("C", new CultureInfo("en-US"))} ({perf.Audience} seats)\r\n";
@@ -64,6 +61,15 @@ namespace Refactoring.FirstExampleDemoTests
                         throw new Exception($"unknown type: {PlayFor(aPerformance).Type}");
                 }
 
+                return result;
+            }
+
+            int volumeCreditsFor(Performance perf)
+            {
+                var result = 0;
+                result += Math.Max(perf.Audience - 30, 0);
+                // add extra credit for every ten comedy attendees
+                if ("comedy" == PlayFor(perf).Type) result += (int)Math.Floor((double)perf.Audience / 5);
                 return result;
             }
         }
