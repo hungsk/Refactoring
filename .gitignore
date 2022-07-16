@@ -368,8 +368,3 @@ FodyWeavers.xsd
 
 # Mac
 .DS_Store
-
-# Visual Studio
-.vs/
-bin/
-obj/
